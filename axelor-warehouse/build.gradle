@@ -1,0 +1,22 @@
+apply plugin: "com.axelor.app-module"
+
+apply from: "../libs.gradle"
+apply from: "../version.gradle"
+
+apply {
+	version = openSuiteVersion
+}
+
+axelor {
+	title "Axelor Warehouse"
+	description "Axelor Wherehouse Module"
+}
+
+dependencies {
+	api project(":modules:axelor-base")
+	implementation group: 'org.json', name: 'json', version: '20210307'
+	implementation group: 'org.jsoup', name: 'jsoup', version: '1.14.2'
+	implementation group: 'org.apache.httpcomponents', name: 'httpmime', version: '4.3.1'
+	compile group: 'org.apache.clerezza.ext', name: 'org.json.simple', version: '0.4'
+	compile group: 'org.json', name: 'json', version: '20180813'
+}

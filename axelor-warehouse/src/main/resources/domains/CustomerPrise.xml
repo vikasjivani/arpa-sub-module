@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/domain-models http://axelor.com/xml/ns/domain-models/domain-models_5.3.xsd">
+
+  <module name="warehouse" package="com.axelor.apps.warehouse.db"/>
+
+  <entity name="CustomerPrise" lang="java">
+
+    <many-to-one ref="com.axelor.apps.warehouse.db.WarehouseCustomer" name="customer"
+      title="Customer"/>
+    <decimal name="unitPrise" title="Personal Unit Price"/>
+    <decimal name="singlePiecePrise" title="Personal Single Piece Price"/>
+    <many-to-one ref="com.axelor.apps.warehouse.db.WarehouseProduct" name="omProduct"/>
+    <!-- address -->
+
+  </entity>
+
+</domain-models>

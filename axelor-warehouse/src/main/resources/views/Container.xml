@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.3.xsd">
+
+  <grid name="warehouse-container-grid" title="Containers"
+    model="com.axelor.apps.warehouse.db.Container">
+    <field name="name" title="Container"/>
+    <field name="code"/>
+    <field name="totalProduct"/>
+    <field name="totalCost"/>
+    <field name="arriveDate"/>
+  </grid>
+
+  <form name="warehouse-container-form" title="Container"
+    model="com.axelor.apps.warehouse.db.Container">
+    <panel name="firstPanel">
+      <field name="name" title="Container"/>
+      <field name="code"/>
+      <field name="totalProduct" readonly="true"/>
+      <field name="totalCost" readonly="true"/>
+      <field name="arriveDate"/>
+    </panel>
+
+    <panel-related field="products" readonlyIf="confirm" canEdit="true"
+      form-view="warehouse-container-product-line-form"
+      grid-view="warehouse-container-product-line-grid"
+      onChange="action-container-method-set-totalcost-container,save"/>
+
+    <panel sidebar="true">
+      <field name="confirm" title="Confirm" hidden="true"/>
+      <spacer/>
+      <field name="confirm" title="Confirm" hidden="true"/>
+      <button css="btn-success"
+        onClick="action-container-method-add-product-qty-in-product-stock,action-container-attrs-set-confirm,save"
+        readonlyIf="confirm" name="confirmContainer" title="Confirm Container"/>
+      <button css="btn-primary"
+        onClick="action-method-warehouse-container-remove-selected-product,action-container-method-set-totalcost-container,save"
+        readonlyIf="!confirm" name="removeProduct" title="Remove Selected Product"/>
+      <button css="btn-danger"
+        onClick="action-method-warehouse-container-reset-all-product,action-container-method-set-totalcost-container,action-attrs-warehouse-conainer-remove-confirm,save"
+        readonlyIf="!confirm" name="removeProduct" title="Remove All Product"/>
+
+    </panel>
+
+  </form>
+
+  <action-attrs name="action-container-attrs-set-confirm">
+    <attribute name="value" for="confirm" expr="eval: true"/>
+  </action-attrs>
+
+  <action-attrs name="action-attrs-warehouse-conainer-remove-confirm">
+    <attribute name="value" for="confirm" expr="eval: false"/>
+  </action-attrs>
+
+  <action-method name="action-container-method-set-totalcost-container">
+    <call class="com.axelor.apps.warehouse.web.ContainerController" method="calculateTotalCost"/>
+  </action-method>
+
+
+  <action-method name="action-container-method-add-product-qty-in-product-stock">
+    <call class="com.axelor.apps.warehouse.web.ContainerController" method="addProductQty"/>
+  </action-method>
+
+  <action-method name="action-method-warehouse-container-remove-selected-product">
+    <call class="com.axelor.apps.warehouse.web.ContainerController"
+      method="removeSelectedProduct"/>
+  </action-method>
+
+  <action-method name="action-method-warehouse-container-reset-all-product">
+    <call class="com.axelor.apps.warehouse.web.ContainerController" method="resetProduct"/>
+  </action-method>
+
+</object-views>

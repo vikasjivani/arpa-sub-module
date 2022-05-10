@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.3.xsd">
+
+  <grid name="inv-sign-now-token-config-grid" title="SignNow Token"
+    model="com.axelor.apps.warehouse.db.SignNowConfig">
+    <field name="token"/>
+    <field name="isTokenValidate"/>
+  </grid>
+
+  <form name="inv-sign-now-token-config-form" title="SignNow Token"
+    model="com.axelor.apps.warehouse.db.SignNowConfig">
+    <panel name="mainPanel" title="SignNow Token validate">
+      <field name="token" title="Token" colSpan="12" readonlyIf="isTokenValidate"/>
+      <field name="emailAddress" required="true"
+        title="Email which use to create Signnow account."/>
+      <spacer/>
+      <field name="isTokenValidate" readonly="true"/>
+      <button onClick="save,action-signnow-config-validate-token,save" name="validateToken"
+        title="Validate Token"/>
+      <spacer colSpan="12"/>
+    </panel>
+    <panel name="loginPanel" title="SignNow Login">
+      <field name="authorizationStr" colSpan="12"/>
+      <field name="username"/>
+      <field name="password"/>
+      <field name="grantType"/>
+      <field name="scop"/>
+      <button onClick="save,action-signnow-config-generate-tocken,save" name="generateToken"
+        title="Generate Token"/>
+    </panel>
+  </form>
+
+  <action-method name="action-signnow-config-validate-token">
+    <call class="" method="validateToken"/>
+  </action-method>
+
+  <action-method name="action-signnow-config-generate-tocken">
+    <call class="" method="generateToken"/>
+  </action-method>
+
+</object-views>

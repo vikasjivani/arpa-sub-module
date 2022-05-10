@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/domain-models http://axelor.com/xml/ns/domain-models/domain-models_5.3.xsd">
+
+  <module name="warehouse" package="com.axelor.apps.warehouse.db"/>
+
+  <entity name="WarehouseInvoice" lang="java">
+
+    <integer name="statusSelect" title="StatusSelect" selection="sale.order.status.select"/>
+
+    <string name="invoiceNumber" title="Invoice Number" namecolumn="true"/>
+    <string name="currency" title="Currency"/>
+    <decimal name="invoiceAmount" title="Nett Amount"/>
+    <decimal name="invoiceTax" title="7% Tax"/>
+    <decimal name="grossAmount" title="Gross Amount"/>
+    <date name="invoiceDate" title="invoiceDate"/>
+
+    <many-to-one ref="com.axelor.apps.warehouse.db.WarehouseCustomer" name="customer"
+      title="Customer"/>
+    <string name="deliveryAddress" large="true" multiline="true" title="Deliver Address"/>
+
+    <one-to-many ref="com.axelor.apps.warehouse.db.WarehouseInvoiceLine" name="products"
+      title="Products" mappedBy="invoice"/>
+    <string name="description" title="Description"/>
+    <boolean name="confirm"/>
+
+    <many-to-one name="quoteWithoutSign" ref="com.axelor.meta.db.MetaFile"
+      title="Upload Quote"/>
+    <string name="emailAddressStr" title="Email Address (Sign Invitation)"/>
+    <string name="docId" title="Doc ID"/>
+    <string name="invitationId" title="Invitation Id"/>
+    <boolean name="isReview" title="Is Review"/>
+
+  </entity>
+
+</domain-models>

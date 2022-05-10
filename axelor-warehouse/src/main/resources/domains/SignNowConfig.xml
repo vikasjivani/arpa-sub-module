@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/domain-models http://axelor.com/xml/ns/domain-models/domain-models_5.3.xsd">
+
+  <module name="warehouse" package="com.axelor.apps.warehouse.db"/>
+
+  <entity name="SignNowConfig" lang="java">
+
+    <string name="token" title="Token"/>
+    <boolean name="isTokenValidate" title="IS Token Valid"/>
+    <string name="emailAddress" title="Email which use to create Signnow account."/>
+
+    <string name="authorizationStr" title="Authorization"/>
+    <string name="username" title="Username"/>
+    <string name="password" title="Password"/>
+    <string name="grantType" title="Grant Type"/>
+    <string name="scop" title="Scop"/>
+
+  </entity>
+
+</domain-models>
