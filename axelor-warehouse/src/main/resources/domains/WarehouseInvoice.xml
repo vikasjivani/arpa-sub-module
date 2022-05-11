@@ -7,7 +7,8 @@
 
   <entity name="WarehouseInvoice" lang="java">
 
-    <integer name="statusSelect" title="StatusSelect" selection="sale.order.status.select"/>
+    <integer name="statusSelect" title="StatusSelect" selection="sale.order.status.select"
+      default="1"/>
 
     <string name="invoiceNumber" title="Invoice Number" namecolumn="true"/>
     <string name="currency" title="Currency"/>
@@ -31,6 +32,10 @@
     <string name="docId" title="Doc ID"/>
     <string name="invitationId" title="Invitation Id"/>
     <boolean name="isReview" title="Is Review"/>
+    <boolean name="isSendInvitation" title="Is Ivitation Send"/>
+    <many-to-one name="quotationPdf" ref="com.axelor.meta.db.MetaFile"
+      title="Signed Order"/>
+
 
   </entity>
 

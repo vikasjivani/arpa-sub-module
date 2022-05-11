@@ -24,6 +24,10 @@
     </menubar>
 
     <panel name="firstPanel">
+
+      <field name="statusSelect" showTitle="false" colSpan="12" widget="NavSelect"/>
+      <spacer/>
+      <spacer/>
       <field name="invoiceNumber" title="Invoice Number"/>
       <field name="currency"/>
 
@@ -50,26 +54,13 @@
       <field name="grossAmount" css="label-bold bold large" readonly="true"/>
       <spacer/>
       <field name="confirm" title="Confirm" hidden="true"/>
-      <button css="btn-success"
-        onClick="action-method-warehouse-invoice-set-available-product-qty,action-attrs-warehouse-invoice-set-confirm,save"
-        readonlyIf="confirm" name="removeProduct" title="Confirm Order"/>
-      <button css="btn-primary"
-        onClick="action-method-warehouse-invoice-remove-selected-product,action-method-warehouse-invoice-set-total-amount,save"
-        readonlyIf="!confirm" name="removeProduct" title="Remove Selected Product"/>
-      <button css="btn-danger"
-        onClick="action-method-warehouse-invoice-reset-all-product,action-method-warehouse-invoice-set-total-amount,action-attrs-warehouse-invoice-remove-confirm,save"
-        readonlyIf="!confirm" name="removeProduct" title="Remove All Product"/>
-
     </panel>
 
-    <panel sidebar="true">
+    <panel sidebar="true" title="Order Process" canCollapse="true">
       <field name="quoteWithoutSign" widget="binary-link" readonlyIf="docId != null"
-        requiredIf="emailAddressStr != null || docId != null" colSpan="6"
+        requiredIf="emailAddressStr != null || docId != null" colSpan="12"
         title="Upload Quotation for Signature"/>
-      <button
-        onClick="action-sale-order-validation-line,action-sale-order-method-upload-quotation"
-        name="uploadQuoteBtn" hideIf="quoteWithoutSign != null" title="Use Reviewed Version"
-        colSpan="6"/>
+
       <field name="emailAddressStr" requiredIf="quoteWithoutSign != null || docId != null"
         readonlyIf="statusSelect >= 4" title="Email Address (Signature Invitation)"
         placeholder="whatever@example.com"
@@ -77,7 +68,7 @@
       <field name="docId" readonly="true"
         requiredIf="quoteWithoutSign != null || emailAddressStr != null"/>
       <field name="invitationId" hidden="true"/>
-      <button onClick="action-sale-order-group-signnow-doc-upload-matt" name="sendDocument"
+      <button onClick="action-invoice-quote-signnow-doc-upload,save" name="sendDocument"
         hideIf="docId != null" title="Attach document to SignNow"/>
       <field name="isSendInvitation" title="Invitation Sent" readonly="true" colSpan="6"
         showIf="statusSelect >= 2"
@@ -87,8 +78,26 @@
         title="Change Quote" colSpan="6"/>
       <field name="quotationPdf" title="Signed Order" widget="binary-link"
         showIf="statusSelect >= 2" readonlyIf="statusSelect >= 3"/>
-
       <field name="isReview" hidden="true"/>
+      <spacer/>
+
+      <button name="sendInvitation" title="Send Invitation" hideIf="statusSelect >= 2"
+        onClick="action-invoice-quote-send-invitation-doc,save"/>
+      <button name="confirmOrder" title="Confirm Order" showIf="statusSelect == 2"
+        onClick="action-invoice-get-confirm-order-from-signow,action-attrs-warehouse-invoice-set-confirm,save"/>
+    </panel>
+
+
+    <panel sidebar="true" title="Actions" canCollapse="true">
+      <button css="btn-success"
+        onClick="action-method-warehouse-invoice-set-available-product-qty,action-attrs-warehouse-invoice-set-confirm,save"
+        readonlyIf="confirm" name="removeProduct" title="Confirm Order"/>
+      <button css="btn-primary"
+        onClick="action-method-warehouse-invoice-remove-selected-product,action-method-warehouse-invoice-set-total-amount,save"
+        readonlyIf="!confirm" name="removeProduct" title="Remove Selected Product"/>
+      <button css="btn-danger"
+        onClick="action-method-warehouse-invoice-reset-all-product,action-method-warehouse-invoice-set-total-amount,action-attrs-warehouse-invoice-remove-confirm,save"
+        readonlyIf="!confirm" name="removeProduct" title="Remove All Product"/>
     </panel>
 
   </form>
@@ -100,6 +109,7 @@
 
   <action-attrs name="action-attrs-warehouse-invoice-set-confirm">
     <attribute name="value" for="confirm" expr="eval: true"/>
+    <attribute name="value" for="statusSelect" expr="eval: 3"/>
   </action-attrs>
 
   <action-attrs name="action-attrs-warehouse-invoice-remove-confirm">
@@ -133,6 +143,21 @@
 
   <action-method name="action-warehouse-invoice-method-print">
     <call class="com.axelor.apps.warehouse.web.WarehouseInvoiceController" method="printReport"/>
+  </action-method>
+
+  <action-method name="action-invoice-quote-signnow-doc-upload">
+    <call class="com.axelor.apps.warehouse.web.SignNowDocumentController"
+      method="uploadSignNowDocFromSaleOrder"/>
+  </action-method>
+
+  <action-method name="action-invoice-quote-send-invitation-doc">
+    <call class="com.axelor.apps.warehouse.web.SignNowDocumentController"
+      method="sendSignNowInvitationFromSaleOrder"/>
+  </action-method>
+
+  <action-method name="action-invoice-get-confirm-order-from-signow">
+    <call class="com.axelor.apps.warehouse.web.SignNowDocumentController"
+      method="getSignQuoteFromSaleOrder"/>
   </action-method>
 
 </object-views>

@@ -33,11 +33,11 @@
   </form>
 
   <action-method name="action-signnow-config-validate-token">
-    <call class="" method="validateToken"/>
+    <call class="com.axelor.apps.warehouse.web.SignNowConfigController" method="validateToken"/>
   </action-method>
 
   <action-method name="action-signnow-config-generate-tocken">
-    <call class="" method="generateToken"/>
+    <call class="com.axelor.apps.warehouse.web.SignNowConfigController" method="generateToken"/>
   </action-method>
 
 </object-views>
