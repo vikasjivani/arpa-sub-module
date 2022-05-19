@@ -28,7 +28,10 @@
     <decimal name="totalSingleCost" title="Total single Cost" min="0"/>
     <decimal name="productTax" title="Product Tax"/>
 
+
     <decimal name="totalCost" min="0"/>
+    <decimal name="taxAmount" title="Tax Amount"/>
+    <decimal name="totalCostInTax" title="Total Cost InTax"/>
 
     <many-to-one ref="com.axelor.apps.warehouse.db.WarehouseInvoice" name="invoice"
       title="Invoice"/>

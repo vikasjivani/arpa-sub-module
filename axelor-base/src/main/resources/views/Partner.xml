@@ -112,6 +112,7 @@
       <button name="replaceDuplicateBtn" title="Merge duplicated"
         onClick="action-validate-select-object-message,action-duplicate-object-wizard-open"/>
     </toolbar>
+    
     <field name="partnerSeq" width="120"/>
     <field name="simpleFullName"/>
     <field name="fixedPhone"/>

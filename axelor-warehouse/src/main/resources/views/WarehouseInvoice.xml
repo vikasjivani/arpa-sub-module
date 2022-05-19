@@ -18,8 +18,8 @@
     <menubar>
       <menu name="WarehouseInvoiceReportsMenu" title="Reports" icon="fa-files-o"
         showTitle="true">
-        <item name="printItem" title="Print"
-          action="save,action-warehouse-invoice-method-print"/>
+        <item name="printItem" title="Print" hideIf="true"
+          action="save,action-warehouse-invoice-method-print1"/>
       </menu>
     </menubar>
 
@@ -50,7 +50,8 @@
     <panel sidebar="true">
       <field name="invoiceDate"/>
       <field name="invoiceAmount" css="label-bold bold large" readonly="true" colSpan="6"/>
-      <field name="invoiceTax" css="label-bold bold large" readonly="true" colSpan="6"/>
+      <field name="invoiceTax" title="Tax Amount" css="label-bold bold large" readonly="true"
+        colSpan="6"/>
       <field name="grossAmount" css="label-bold bold large" readonly="true"/>
       <spacer/>
       <field name="confirm" title="Confirm" hidden="true"/>

@@ -12,4 +12,12 @@
     <option value="5">Canceled</option>
   </selection>
 
+  <selection name="meta.schedule.job.select" id="override">
+    <option value="com.axelor.mail.service.MailFetchJob">com.axelor.mail.service.MailFetchJob</option>
+    <!-- <option value="com.axelor.apps.base.job.GlobalTrackingLogCleaningJob">com.axelor.apps.base.job.GlobalTrackingLogCleaningJob</option>
+      <option value="com.axelor.apps.base.job.MailJob">com.axelor.apps.base.job.MailJob</option> <option value="com.axelor.apps.base.job.BatchJob">com.axelor.apps.base.job.BatchJob</option>
+      <option value="com.axelor.apps.base.job.CurrencyConversionJob">com.axelor.apps.base.job.CurrencyConversionJob</option> -->
+    <option value="com.axelor.apps.warehouse.service.WarehouseOrderConfirmJob">Order Confirm Job</option>
+  </selection>
+
 </object-views>

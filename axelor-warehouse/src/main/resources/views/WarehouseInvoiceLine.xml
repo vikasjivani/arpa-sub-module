@@ -9,8 +9,9 @@
     <field name="productCode"/>
     <field name="totalPiece"/>
     <field name="piecePrise"/>
-    <field name="totalCartoon"/>
     <field name="totalCost"/>
+    <field name="taxAmount"/>
+    <field name="totalCostInTax"/>
 
     <field name="unit" hidden="true"/>
 
@@ -31,13 +32,17 @@
       <spacer colSpan="12"/>
       <field name="piecePrise" min="0"
         onChange="action-attrs-warehouse-invoice-line-set-product-cost"/>
-      <field name="productTax"/>
+      <field name="productTax" onChange="action-attrs-warehouse-invoice-line-set-product-cost"/>
       <field name="totalPiece" min="0"
         onChange="action-methods-warehouse-invoice-line-check-product-qty,action-attrs-warehouse-invoice-line-set-product-cost"/>
       <spacer/>
       <field name="totalCartoon" readonly="true" min="0"/>
       <spacer colSpan="12"/>
-      <field name="totalCost" css="label-bold bold large" min="0" readonly="true"/>
+      <field name="totalCost" css="label-bold bold large" min="0" readonly="true" colSpan="4"/>
+      <field name="taxAmount" css="label-bold bold large" min="0" readonly="true" colSpan="4"/>
+      <field name="totalCostInTax" css="label-bold bold large" min="0" readonly="true"
+        colSpan="4"/>
+
 
 
       <spacer colSpan="12"/>
@@ -64,10 +69,13 @@
     <attribute name="value" for="totalCartoon" expr="eval: 0.00"/>
     <attribute name="value" for="totalPiece" expr="eval: 0.00"/>
     <attribute name="value" for="totalCost" expr="eval: 0.00"/>
+    <attribute name="value" for="taxAmount" expr="eval: 0.00"/>
+    <attribute name="value" for="totalCostInTax" expr="eval: 0.00"/>
 
 
     <attribute name="value" for="productCode" expr="eval: product?.code"/>
     <attribute name="value" for="cartoonPiece" expr="eval: product?.unitPiece"/>
+    <attribute name="value" for="productTax" expr="eval: product?.productTax"/>
     <attribute name="value" for="piecePrise" if="product != null"
       expr="eval:__repo__(CustomerPrise).all().filter('self.omProduct = ? AND self.customer = ?',product,__parent__.customer).fetchOne()?.singlePiecePrise"/>
   </action-attrs>
@@ -76,6 +84,10 @@
   <action-attrs name="action-attrs-warehouse-invoice-line-set-product-cost">
     <attribute name="value" for="totalCartoon" expr="eval: totalPiece / cartoonPiece"/>
     <attribute name="value" for="totalCost" expr="eval: piecePrise * totalPiece"/>
+    <attribute name="value" for="taxAmount"
+      expr="eval: (piecePrise * totalPiece * productTax) / 100"/>
+    <attribute name="value" for="totalCostInTax"
+      expr="eval: ((piecePrise * totalPiece * productTax) / 100) + (piecePrise * totalPiece)"/>
   </action-attrs>
 
   <action-attrs name="action-attrs-on-invoice-line-set-confirm">

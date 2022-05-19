@@ -23,6 +23,7 @@ public class WarehouseInvoiceController {
       throws AxelorException {
     WarehouseInvoice invoice = request.getContext().asType(WarehouseInvoice.class);
     BigDecimal totalCost = new BigDecimal(0);
+    BigDecimal totalTax = new BigDecimal(0);
 
     if (invoice.getProducts() == null) {
       response.setValue("invoiceAmount", totalCost);
@@ -32,12 +33,13 @@ public class WarehouseInvoiceController {
     List<WarehouseInvoiceLine> invoiceLines = invoice.getProducts();
     for (WarehouseInvoiceLine invoiceLine : invoiceLines) {
       totalCost = totalCost.add(invoiceLine.getTotalCost());
+      totalTax = totalTax.add(invoiceLine.getTaxAmount());
     }
-    BigDecimal taxAmount = totalCost.multiply(new BigDecimal(0.07));
-    BigDecimal grossAmount = taxAmount.add(totalCost);
+    //    BigDecimal taxAmount = totalCost.multiply(new BigDecimal(0.07));
+    BigDecimal grossAmount = totalTax.add(totalCost);
 
     response.setValue("invoiceAmount", totalCost);
-    response.setValue("invoiceTax", taxAmount);
+    response.setValue("invoiceTax", totalTax);
     response.setValue("grossAmount", grossAmount);
   }
 

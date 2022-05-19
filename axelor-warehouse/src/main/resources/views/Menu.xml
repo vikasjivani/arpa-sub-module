@@ -6,8 +6,8 @@
   <menuitem name="warehouse-foods-root" title="Warehouse" order="-108" if=""
     icon-background="#2fa042"/>
 
-  <menuitem name="product-warehouse-foods-root" parent="warehouse-foods-root"
-    title="Products" action="warehouse.product.root" order="1"/>
+  <menuitem name="product-warehouse-foods-root" parent="" title="Products"
+    action="warehouse.product.root" order="1"/>
 
   <action-view name="warehouse.product.root" title="Products"
     model="com.axelor.apps.warehouse.db.WarehouseProduct">
@@ -15,8 +15,8 @@
     <view type="form" name="warehouse-product-form"/>
   </action-view>
 
-  <menuitem name="warehouse-foods-customer-root" parent="warehouse-foods-root"
-    title="Customers" action="warehouse.customer.root" order="1"/>
+  <menuitem name="warehouse-foods-customer-root" parent="" title="Customers"
+    action="warehouse.customer.root" order="1"/>
 
   <action-view name="warehouse.customer.root" title="Customer"
     model="com.axelor.apps.warehouse.db.WarehouseCustomer">
@@ -24,7 +24,7 @@
     <view type="form" name="warehouse-customer-form"/>
   </action-view>
 
-  <menuitem name="warehouse-container-root" parent="warehouse-foods-root" title="Container"
+  <menuitem name="warehouse-container-root" parent="" title="Container"
     action="warehouse.container.root" order="1"/>
 
   <action-view name="warehouse.container.root" title="Container"
@@ -33,7 +33,7 @@
     <view type="form" name="warehouse-container-form"/>
   </action-view>
 
-  <menuitem name="warehouse-invoice-root" parent="warehouse-foods-root" title="Invoice"
+  <menuitem name="warehouse-invoice-root" parent="" title="Invoice"
     action="warhouse.invoice.root" order="1"/>
 
   <action-view name="warhouse.invoice.root" title="Invoice"

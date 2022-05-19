@@ -5,10 +5,12 @@
 
   <grid name="warehouse-product-grid" title="Om Products"
     model="com.axelor.apps.warehouse.db.WarehouseProduct" orderBy="name">
+    <hilite if="totalPiece lt; 10" color="default"/>
     <field name="picture" widget="Image"/>
     <field name="name"/>
     <field name="code"/>
     <field name="unitstock"/>
+    <field name="totalPiece" />
   </grid>
 
   <form name="warehouse-product-form" title="Om Product"
