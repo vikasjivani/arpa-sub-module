@@ -3,16 +3,40 @@
     <property name="createdBy">Eclipse BIRT Designer Version 4.4.2.v201410272105 Build &lt;4.4.2.v20150217-1805></property>
     <list-property name="propertyBindings">
         <structure>
-            <property name="name">queryText</property>
-            <property name="id">8</property>
+            <property name="name">odaDriverClass</property>
+            <property name="id">7</property>
         </structure>
         <structure>
-            <property name="name">queryTimeOut</property>
-            <property name="id">8</property>
+            <property name="name">odaURL</property>
+            <property name="id">7</property>
         </structure>
         <structure>
-            <property name="name">rowFetchSize</property>
-            <property name="id">8</property>
+            <property name="name">odaUser</property>
+            <property name="id">7</property>
+        </structure>
+        <structure>
+            <property name="name">odaAutoCommit</property>
+            <property name="id">7</property>
+        </structure>
+        <structure>
+            <property name="name">odaIsolationMode</property>
+            <property name="id">7</property>
+        </structure>
+        <structure>
+            <property name="name">odaPassword</property>
+            <property name="id">7</property>
+        </structure>
+        <structure>
+            <property name="name">odaJndiName</property>
+            <property name="id">7</property>
+        </structure>
+        <structure>
+            <property name="name">OdaConnProfileName</property>
+            <property name="id">7</property>
+        </structure>
+        <structure>
+            <property name="name">OdaConnProfileStorePath</property>
+            <property name="id">7</property>
         </structure>
     </list-property>
     <property name="units">in</property>
@@ -52,13 +76,13 @@
                 </ex-property>
             </list-property>
             <property name="odaDriverClass">org.postgresql.Driver</property>
-            <property name="odaURL">jdbc:postgresql://localhost:5432/om_foods</property>
+            <property name="odaURL">jdbc:postgresql://localhost:5432/arpa</property>
             <property name="odaUser">postgres</property>
             <encrypted-property name="odaPassword" encryptionID="base64">cm9vdA==</encrypted-property>
         </oda-data-source>
     </data-sources>
     <data-sets>
-        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="om" id="8">
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="om" id="964">
             <list-property name="columnHints">
                 <structure>
                     <property name="columnName">id</property>
@@ -143,6 +167,12 @@
                     <property name="analysis">measure</property>
                     <text-property name="displayName">totalcost</text-property>
                     <text-property name="heading">totalcost</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">linetax</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">linetax</text-property>
+                    <text-property name="heading">linetax</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">cname</property>
@@ -256,21 +286,26 @@
                     </structure>
                     <structure>
                         <property name="position">15</property>
+                        <property name="name">linetax</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">16</property>
                         <property name="name">cname</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">16</property>
+                        <property name="position">17</property>
                         <property name="name">contectperson</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">17</property>
+                        <property name="position">18</property>
                         <property name="name">phone</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">18</property>
+                        <property name="position">19</property>
                         <property name="name">pname</property>
                         <property name="dataType">string</property>
                     </structure>
@@ -378,34 +413,42 @@
                 </structure>
                 <structure>
                     <property name="position">15</property>
+                    <property name="name">linetax</property>
+                    <property name="nativeName">linetax</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">2</property>
+                </structure>
+                <structure>
+                    <property name="position">16</property>
                     <property name="name">cname</property>
                     <property name="nativeName">cname</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">16</property>
+                    <property name="position">17</property>
                     <property name="name">contectperson</property>
                     <property name="nativeName">contectperson</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">17</property>
+                    <property name="position">18</property>
                     <property name="name">phone</property>
                     <property name="nativeName">phone</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">18</property>
+                    <property name="position">19</property>
                     <property name="name">pname</property>
                     <property name="nativeName">pname</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
             </list-property>
-            <xml-property name="queryText"><![CDATA[select Invoice.id as id, 
+            <xml-property name="queryText"><![CDATA[
+select Invoice.id as id, 
 Invoice.invoice_number as iNumber, 
 Invoice.invoice_date as iDate, 
 Invoice.invoice_amount as iTotalAmount,
@@ -418,16 +461,17 @@ Invoice.description as description,
  Invoice_Line.total_piece as totalPiece,
  Invoice_Line.piece_prise as piecePrise,
  Invoice_Line.total_cartoon as totalCartoon,
- Invoice_Line.total_cost as totalCost,
+ Invoice_Line.total_cost_in_tax as totalCost,
+ Invoice_Line.tax_amount as lineTax,
  Customer.name as cName,
  Customer.contect_person_name as contectPerson,
  Customer.mobile_phone as Phone,
  Product.name as pName
  
-from om_om_invoice as Invoice 
-left outer join om_om_invoice_line as Invoice_Line on (Invoice.id = Invoice_Line.invoice)
-left outer join om_om_customer as Customer on (Customer.id = Invoice.customer)
-left outer join om_om_product as Product on (Product.id = Invoice_Line.product)
+from warehouse_warehouse_invoice as Invoice 
+left outer join warehouse_warehouse_invoice_line as Invoice_Line on (Invoice.id = Invoice_Line.invoice)
+left outer join warehouse_warehouse_customer as Customer on (Customer.id = Invoice.customer)
+left outer join warehouse_warehouse_product as Product on (Product.id = Invoice_Line.product)
 where Invoice.id = ?
 ]]></xml-property>
             <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
@@ -647,7 +691,6 @@ where Invoice.id = ?
                                         <property name="borderBottomStyle">solid</property>
                                         <property name="borderBottomWidth">thin</property>
                                         <data id="957">
-                                            <property name="dataSet">om</property>
                                             <list-property name="boundDataColumns">
                                                 <structure>
                                                     <property name="name">Name</property>
@@ -662,7 +705,6 @@ where Invoice.id = ?
                                             <property name="fontSize">3pt</property>
                                         </label>
                                         <data id="959">
-                                            <property name="dataSet">om</property>
                                             <list-property name="boundDataColumns">
                                                 <structure>
                                                     <property name="name">deliveraddress</property>
@@ -741,17 +783,17 @@ where Invoice.id = ?
                                 <text-property name="text">OM Foods GmbH</text-property>
                             </label>
                             <label id="479">
-                                <text-property name="text">Dürerplatz 2, 12157</text-property>
+                                <text-property name="text">Address Str 1</text-property>
                             </label>
                             <label id="480">
-                                <text-property name="text">Berlin, Deutschland</text-property>
+                                <text-property name="text">Address Str 2</text-property>
                             </label>
                             <label id="481">
                                 <property name="fontWeight">bold</property>
                                 <text-property name="text">Geschäftsführer:</text-property>
                             </label>
                             <label id="482">
-                                <text-property name="text">Herr Darshankumar Gondaliya</text-property>
+                                <text-property name="text">Sale Person</text-property>
                             </label>
                         </cell>
                         <cell id="483">
@@ -776,7 +818,7 @@ where Invoice.id = ?
                                     <cell id="490">
                                         <label id="491">
                                             <property name="fontSize">8pt</property>
-                                            <text-property name="text">www.omfoods.gmbh</text-property>
+                                            <text-property name="text">www.arpa.gmbh</text-property>
                                         </label>
                                     </cell>
                                 </row>
@@ -790,7 +832,7 @@ where Invoice.id = ?
                                     <cell id="495">
                                         <label id="496">
                                             <property name="fontSize">8pt</property>
-                                            <text-property name="text">info@omfoods.gmbh</text-property>
+                                            <text-property name="text">info@arpa.gmbh</text-property>
                                         </label>
                                     </cell>
                                 </row>
@@ -804,7 +846,7 @@ where Invoice.id = ?
                                     <cell id="500">
                                         <label id="501">
                                             <property name="fontSize">8pt</property>
-                                            <text-property name="text">+49 30 55108978</text-property>
+                                            <text-property name="text">+49 0000000000</text-property>
                                         </label>
                                     </cell>
                                 </row>
@@ -833,7 +875,7 @@ where Invoice.id = ?
                                     <cell id="509">
                                         <label id="510">
                                             <property name="fontSize">7pt</property>
-                                            <text-property name="text">OM Foods GmbH</text-property>
+                                            <text-property name="text">NAME</text-property>
                                         </label>
                                     </cell>
                                 </row>
@@ -847,7 +889,7 @@ where Invoice.id = ?
                                     <cell id="514">
                                         <label id="515">
                                             <property name="fontSize">7pt</property>
-                                            <text-property name="text">Berliner Sparkasse - Landesbank Berlin  AG, Alexanderplatz 2, 10178 Berlin</text-property>
+                                            <text-property name="text">Bank Details</text-property>
                                         </label>
                                     </cell>
                                 </row>
@@ -861,7 +903,7 @@ where Invoice.id = ?
                                     <cell id="519">
                                         <label id="520">
                                             <property name="fontSize">7pt</property>
-                                            <text-property name="text">DE50 1005 0000 0190 9483 10</text-property>
+                                            <text-property name="text">DE00 0000 0000 0000 0000 00</text-property>
                                         </label>
                                     </cell>
                                 </row>
@@ -875,7 +917,7 @@ where Invoice.id = ?
                                     <cell id="524">
                                         <label id="525">
                                             <property name="fontSize">7pt</property>
-                                            <text-property name="text">BELADEBEXXX</text-property>
+                                            <text-property name="text">XXXXXXXX</text-property>
                                         </label>
                                     </cell>
                                 </row>
@@ -903,8 +945,7 @@ where Invoice.id = ?
                                     <cell id="533">
                                         <label id="534">
                                             <property name="fontSize">7pt</property>
-                                            <text-property name="text">Amtsgericht
-Charlottenburg (Berlin)</text-property>
+                                            <text-property name="text">REG NUM</text-property>
                                         </label>
                                     </cell>
                                 </row>
@@ -918,7 +959,7 @@ Charlottenburg (Berlin)</text-property>
                                     <cell id="538">
                                         <label id="539">
                                             <property name="fontSize">7pt</property>
-                                            <text-property name="text">HRB 219145 B</text-property>
+                                            <text-property name="text">000 000 000</text-property>
                                         </label>
                                     </cell>
                                 </row>
@@ -932,7 +973,7 @@ Charlottenburg (Berlin)</text-property>
                                     <cell id="543">
                                         <label id="544">
                                             <property name="fontSize">7pt</property>
-                                            <text-property name="text">DE332735155</text-property>
+                                            <text-property name="text">DE00000</text-property>
                                         </label>
                                     </cell>
                                 </row>
@@ -1032,7 +1073,7 @@ Charlottenburg (Berlin)</text-property>
                     <property name="borderBottomStyle">solid</property>
                     <property name="borderBottomWidth">thin</property>
                     <grid id="919">
-                        <property name="height">1.056338028169014in</property>
+                        <property name="height">0.9366197183098591in</property>
                         <property name="width">3.267605633802817in</property>
                         <column id="920">
                             <property name="width">0.9084507042253521in</property>
@@ -1041,15 +1082,15 @@ Charlottenburg (Berlin)</text-property>
                             <property name="width">2.359154929577465in</property>
                         </column>
                         <row id="922">
-                            <property name="height">0.8661971830985915in</property>
+                            <property name="height">0.7464788732394366in</property>
                             <cell id="923"/>
                             <cell id="924">
                                 <image id="87">
                                     <property name="marginLeft">13pt</property>
-                                    <property name="height">0.7746478873239436in</property>
-                                    <property name="width">2.035211267605634in</property>
+                                    <property name="height">0.6408450704225352in</property>
+                                    <property name="width">1.9154929577464788in</property>
                                     <property name="source">embed</property>
-                                    <property name="imageName">Asset 1.png</property>
+                                    <property name="imageName">ARP.png</property>
                                 </image>
                             </cell>
                         </row>
@@ -1061,7 +1102,7 @@ Charlottenburg (Berlin)</text-property>
                                     <property name="fontSize">6pt</property>
                                     <property name="marginLeft">20pt</property>
                                     <structure name="toc"/>
-                                    <text-property name="text">OM Foods GmbH • Dürerplatz 2 • 12157 Berlin</text-property>
+                                    <text-property name="text">ARP GmbH • ABCD STR • 00000 CITY</text-property>
                                 </label>
                             </cell>
                         </row>
@@ -1096,6 +1137,7 @@ Charlottenburg (Berlin)</text-property>
                     <grid id="575">
                         <property name="height">1.1118881118881119in</property>
                         <property name="width">3.013986013986014in</property>
+                        <property name="dataSet">om</property>
                         <column id="576">
                             <property name="width">1.3846153846153846in</property>
                         </column>
@@ -1125,7 +1167,6 @@ Charlottenburg (Berlin)</text-property>
                                 <property name="colSpan">3</property>
                                 <property name="rowSpan">3</property>
                                 <data id="584">
-                                    <property name="dataSet">om</property>
                                     <list-property name="boundDataColumns">
                                         <structure>
                                             <property name="name">Name</property>
@@ -1140,7 +1181,6 @@ Charlottenburg (Berlin)</text-property>
                                     <property name="fontSize">3pt</property>
                                 </label>
                                 <data id="586">
-                                    <property name="dataSet">om</property>
                                     <list-property name="boundDataColumns">
                                         <structure>
                                             <property name="name">deliveraddress</property>
@@ -1167,6 +1207,7 @@ Charlottenburg (Berlin)</text-property>
                     <grid id="48">
                         <property name="height">1.0211267605633803in</property>
                         <property name="width">3.2447552447552446in</property>
+                        <property name="dataSet">om</property>
                         <column id="49">
                             <property name="width">1.3846153846153846in</property>
                         </column>
@@ -1204,18 +1245,23 @@ Charlottenburg (Berlin)</text-property>
                                 <property name="borderBottomWidth">thin</property>
                                 <property name="borderRightStyle">solid</property>
                                 <property name="borderRightWidth">thin</property>
-                                <data id="65">
-                                    <property name="fontSize">8.5pt</property>
+                                <data id="962">
                                     <property name="dataSet">om</property>
                                     <list-property name="boundDataColumns">
                                         <structure>
-                                            <property name="name">Column Binding</property>
+                                            <property name="name">inumber</property>
+                                            <text-property name="displayName">inumber</text-property>
+                                            <expression name="expression" type="javascript">dataSetRow["inumber"]</expression>
+                                            <property name="dataType">string</property>
+                                        </structure>
+                                        <structure>
+                                            <property name="name">iNum</property>
                                             <expression name="expression" type="javascript">dataSetRow["inumber"]</expression>
                                             <property name="dataType">string</property>
                                             <property name="allowExport">true</property>
                                         </structure>
                                     </list-property>
-                                    <property name="resultSetColumn">Column Binding</property>
+                                    <property name="resultSetColumn">iNum</property>
                                 </data>
                             </cell>
                         </row>
@@ -1246,7 +1292,6 @@ Charlottenburg (Berlin)</text-property>
                                 <data id="937">
                                     <property name="style">date_formate</property>
                                     <property name="fontSize">8.5pt</property>
-                                    <property name="dataSet">om</property>
                                     <list-property name="boundDataColumns">
                                         <structure>
                                             <property name="name">date</property>
@@ -1285,7 +1330,6 @@ Charlottenburg (Berlin)</text-property>
                                 <property name="borderRightWidth">thin</property>
                                 <data id="425">
                                     <property name="fontSize">8.5pt</property>
-                                    <property name="dataSet">om</property>
                                     <list-property name="boundDataColumns">
                                         <structure>
                                             <property name="name">person</property>
@@ -1321,7 +1365,6 @@ Charlottenburg (Berlin)</text-property>
                                 <property name="borderRightStyle">solid</property>
                                 <property name="borderRightWidth">thin</property>
                                 <data id="432">
-                                    <property name="dataSet">om</property>
                                     <list-property name="boundDataColumns">
                                         <structure>
                                             <property name="name">Phone</property>
@@ -1357,6 +1400,60 @@ Charlottenburg (Berlin)</text-property>
             <property name="dataSet">om</property>
             <list-property name="boundDataColumns">
                 <structure>
+                    <property name="name">id</property>
+                    <text-property name="displayName">id</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["id"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">inumber</property>
+                    <text-property name="displayName">inumber</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["inumber"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">idate</property>
+                    <text-property name="displayName">idate</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["idate"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">itotalamount</property>
+                    <text-property name="displayName">itotalamount</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["itotalamount"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">ideliveraddress</property>
+                    <text-property name="displayName">ideliveraddress</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["ideliveraddress"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">currency</property>
+                    <text-property name="displayName">currency</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["currency"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">taxamount</property>
+                    <text-property name="displayName">taxamount</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["taxamount"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">grossamount</property>
+                    <text-property name="displayName">grossamount</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["grossamount"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">description</property>
+                    <text-property name="displayName">description</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["description"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
                     <property name="name">code</property>
                     <text-property name="displayName">code</text-property>
                     <expression name="expression" type="javascript">dataSetRow["code"]</expression>
@@ -1387,8 +1484,44 @@ Charlottenburg (Berlin)</text-property>
                     <property name="dataType">decimal</property>
                 </structure>
                 <structure>
-                    <property name="name">PName</property>
+                    <property name="name">cname</property>
+                    <text-property name="displayName">cname</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["cname"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">contectperson</property>
+                    <text-property name="displayName">contectperson</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["contectperson"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">phone</property>
+                    <text-property name="displayName">phone</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["phone"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">pname</property>
+                    <text-property name="displayName">pname</text-property>
                     <expression name="expression" type="javascript">dataSetRow["pname"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">lineTax</property>
+                    <expression name="expression" type="javascript">dataSetRow["linetax"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">tax</property>
+                    <expression name="expression" type="javascript">row["lineTax"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">Pname</property>
+                    <expression name="expression" type="javascript">row["pname"]</expression>
                     <property name="dataType">string</property>
                     <property name="allowExport">true</property>
                 </structure>
@@ -1449,7 +1582,7 @@ Charlottenburg (Berlin)</text-property>
                     <cell id="113">
                         <property name="fontSize">9pt</property>
                         <label id="139">
-                            <text-property name="text">Karton</text-property>
+                            <text-property name="text">Steuer</text-property>
                         </label>
                     </cell>
                     <cell id="114">
@@ -1474,7 +1607,7 @@ Charlottenburg (Berlin)</text-property>
                     <cell id="117">
                         <data id="146">
                             <property name="fontSize">9pt</property>
-                            <property name="resultSetColumn">PName</property>
+                            <property name="resultSetColumn">Pname</property>
                         </data>
                     </cell>
                     <cell id="118">
@@ -1492,10 +1625,61 @@ Charlottenburg (Berlin)</text-property>
                         </data>
                     </cell>
                     <cell id="120">
-                        <data id="150">
-                            <property name="style">decimal_format</property>
+                        <data id="969">
+                            <property name="backgroundAttachment">scroll</property>
+                            <property name="backgroundPositionX">0%</property>
+                            <property name="backgroundPositionY">0%</property>
+                            <property name="backgroundRepeat">repeat</property>
+                            <property name="fontFamily">sans-serif</property>
                             <property name="fontSize">9pt</property>
-                            <property name="resultSetColumn">totalcartoon</property>
+                            <property name="fontWeight">normal</property>
+                            <property name="fontStyle">normal</property>
+                            <property name="fontVariant">normal</property>
+                            <property name="color">black</property>
+                            <property name="textLineThrough">none</property>
+                            <property name="textOverline">none</property>
+                            <property name="textUnderline">none</property>
+                            <property name="borderBottomColor">black</property>
+                            <property name="borderBottomStyle">none</property>
+                            <property name="borderBottomWidth">medium</property>
+                            <property name="borderLeftColor">black</property>
+                            <property name="borderLeftStyle">none</property>
+                            <property name="borderLeftWidth">medium</property>
+                            <property name="borderRightColor">black</property>
+                            <property name="borderRightStyle">none</property>
+                            <property name="borderRightWidth">medium</property>
+                            <property name="borderTopColor">black</property>
+                            <property name="borderTopStyle">none</property>
+                            <property name="borderTopWidth">medium</property>
+                            <property name="marginTop">0pt</property>
+                            <property name="marginLeft">0pt</property>
+                            <property name="marginBottom">0pt</property>
+                            <property name="marginRight">0pt</property>
+                            <property name="paddingTop">1pt</property>
+                            <property name="paddingLeft">1pt</property>
+                            <property name="paddingBottom">1pt</property>
+                            <property name="paddingRight">1pt</property>
+                            <structure name="numberFormat">
+                                <property name="category">Custom</property>
+                                <property name="pattern">#0.00</property>
+                                <property name="locale">de_DE</property>
+                            </structure>
+                            <property name="textAlign">center</property>
+                            <property name="letterSpacing">normal</property>
+                            <property name="lineHeight">normal</property>
+                            <property name="orphans">2</property>
+                            <property name="textTransform">none</property>
+                            <property name="whiteSpace">normal</property>
+                            <property name="widows">2</property>
+                            <property name="wordSpacing">normal</property>
+                            <property name="display">block</property>
+                            <property name="pageBreakAfter">auto</property>
+                            <property name="pageBreakBefore">auto</property>
+                            <property name="pageBreakInside">auto</property>
+                            <property name="showIfBlank">false</property>
+                            <property name="canShrink">false</property>
+                            <property name="overflow">hidden</property>
+                            <property name="resultSetColumn">tax</property>
                         </data>
                     </cell>
                     <cell id="121">
@@ -1552,6 +1736,7 @@ Charlottenburg (Berlin)</text-property>
                     <grid id="216">
                         <property name="height">0.7272727272727273in</property>
                         <property name="width">2.8943661971830985in</property>
+                        <property name="dataSet">om</property>
                         <column id="217">
                             <property name="width">2.034965034965035in</property>
                         </column>
@@ -1576,7 +1761,6 @@ Charlottenburg (Berlin)</text-property>
                                     <property name="fontSize">10pt</property>
                                     <property name="fontWeight">normal</property>
                                     <property name="marginRight">3pt</property>
-                                    <property name="dataSet">om</property>
                                     <list-property name="boundDataColumns">
                                         <structure>
                                             <property name="name">Netto</property>
@@ -1597,7 +1781,7 @@ Charlottenburg (Berlin)</text-property>
                                 <property name="borderRightWidth">thin</property>
                                 <label id="457">
                                     <property name="fontSize">10pt</property>
-                                    <text-property name="text">Zzgl.7,00 % Ust.:</text-property>
+                                    <text-property name="text">Steuer:</text-property>
                                 </label>
                             </cell>
                             <cell id="462">
@@ -1606,7 +1790,6 @@ Charlottenburg (Berlin)</text-property>
                                     <property name="fontSize">10pt</property>
                                     <property name="fontWeight">normal</property>
                                     <property name="marginRight">3pt</property>
-                                    <property name="dataSet">om</property>
                                     <list-property name="boundDataColumns">
                                         <structure>
                                             <property name="name">Tax</property>
@@ -1636,7 +1819,6 @@ Charlottenburg (Berlin)</text-property>
                                     <property name="fontSize">10pt</property>
                                     <property name="fontWeight">normal</property>
                                     <property name="marginRight">3pt</property>
-                                    <property name="dataSet">om</property>
                                     <list-property name="boundDataColumns">
                                         <structure>
                                             <property name="name">Gross</property>
@@ -1689,13 +1871,13 @@ Charlottenburg (Berlin)</text-property>
                         <property name="dataSet">om</property>
                         <list-property name="boundDataColumns">
                             <structure>
-                                <property name="name">Description</property>
+                                <property name="name">Column Binding</property>
                                 <expression name="expression" type="javascript">dataSetRow["description"]</expression>
                                 <property name="dataType">string</property>
                                 <property name="allowExport">true</property>
                             </structure>
                         </list-property>
-                        <property name="resultSetColumn">Description</property>
+                        <property name="resultSetColumn">Column Binding</property>
                     </data>
                 </cell>
                 <cell id="604"/>
@@ -1713,7 +1895,7 @@ Charlottenburg (Berlin)</text-property>
                     </label>
                     <label id="943">
                         <property name="fontWeight">bold</property>
-                        <text-property name="text">Darshankumar Gondaliya</text-property>
+                        <text-property name="text">Sale Person</text-property>
                     </label>
                 </cell>
                 <cell id="608"/>
@@ -2128,6 +2310,63 @@ Charlottenburg (Berlin)</text-property>
                 HuPFxw02I7H6vLrO5hju7uKMITepXmMy7hl9iK+uzaTBbOJD/abN/29XWO9TCOiVTbIMzptikD5be13w
                 Y6GvDHLzEAccrX66Vx2fjLw+LF4grjIO0I/xeCcdXOgvXmdTXzb6rxxn34n79iqGgFTvWw9rgcJSzNSp
                 aZr/ByxE2n2bAg6fAAAAAElFTkSuQmCC
+</property>
+        </structure>
+        <structure>
+            <property name="name">ARP.png</property>
+            <property name="type">image/png</property>
+            <property name="data">
+                iVBORw0KGgoAAAANSUhEUgAAAJsAAACFCAMAAAB7Y3pVAAAAk1BMVEX////+/v48UNIWLsn7+/74+P3q
+                6/r19f3v7+/09PTy8vzi4/je3/ft7vvl5vnMzvPW1/Wyte2sr+vl5eW2ue7Q0vTFx/Goq+rAwvCUmOba
+                2/aZneedoegzSdEjOcyjpukAIccpQtCLj+Tc3NyCh+IAGMYAAMRqcNx5ft8/RtIADcVjadt0ed5FVtRL
+                XdUuNs8iK87QTsmdAAALGElEQVR4nO2aiXKrSBJFUxKLzQ6PfRGLkcECLf//dZNZVSDJz90z3cjunghu
+                2A5ZIHOceTOrqAJg1apVq1atWrVq1apVq1atWrVq1apV/+/a3PRPo0za/IH+aa4HMGnWv4Dunkl+lAD8
+                tiv/IcznYDEa9V6M7jti96VnvnIU5yIWTdNM01SETPxVnei+B+zPJQLGuRDIsnSSgd+WhXgUvKfCPbr6
+                d5hHWxGXyagMI3VQAZPjpIZBeM+E+8QwA0qbO6ybqVjAOFcQ2HaIiklhaAeOoc9wz0KbEjVbWhZUN1fd
+                RGDIZROS77uu53lRFHmu68ch0lnK0+AYGVFwAgW/maX5W8LrlrAV95ZBYCFiIVOeZ0nSJKgsKz0/toP0
+                aXACTdUoHhZ3NKs4xsW9juljvhLCRMYxcuUI1bZt4sUBBks3bC/JXT/kcOSKp6Cp3EEpCR3N+Cha9BYz
+                FXPVJEykV2K0ME5xqsgS+zvsp+5lEcIZlomBXxo4ETUNMZiDSOjo1GC5YyFiRvfJVyT2wosSLzUUWfwR
+                y3aTtm+zAF/HCcI5uoKuWBo4YsOoYUIchPD51WPECyYuhlKW5KqEuyrLksanD2uWE+btab+v64JUb5Eu
+                wBTbjoXFutRxAs1KAzvGROV05TLyqSGw3LkRUaGr+iaKMbVx3pLGFMKmH871vi62NxVFCeDnLmZVWcyG
+                n8aEmnoahD5WXOnGjiWrTh6x3KGpmrZJSi90zPkjctwP3TmF5oFq0t4DKcP/IiXHLUoqz6ipGE7ol7Gi
+                Mj9LG3CTEhtWiQFwFFNlF5BkK/ByL9QAzGRbOJB8hYahM8DOyHE8qUvYsBDQbIgWuXh9zQm9pPPAaJmz
+                NB4oxY7LZigwf3W9LxoLILli3B6SWU9RrFvQMi+maljMhm5Ds8Vehg46n9AxxccoqUnbNq0Niu0143nL
+                jD5jnELY9MHEViDUaRiTvBXHz6oURb5NhpMXsLGUotsoo4kqtdP1U/C6vu9syHZ18VvqiiIE0wF+9hlL
+                JNCZF+wTP+6AWyIbGm5J+xVFamDYEh/06eJ1Dvq5687I9rWnagVbLWOrXfaHTCuwVQjZ2YWNleqzYljM
+                hkVqu2Wrg1vPWQMYz8M2/MQ2h7BO0Js9Y/PBiJrxVOwO7cbcCjZ3ORtPKYYNCyCT4DxD7FLwixOmbq5F
+                9Pr+NPaDwD9bII2CrTle6vqjvpxkdXLEc9hk2bQM24+aGNJbjApM6rbYz2zFqY9Cw1JlzRUnBCB1jC2G
+                5vqBqisPHHb2SZOim9/+JhrwsGEluHmrQFbPbNuzCeP+ItiKRpyvKThcsrMQSRoYWwjtdX+5VhccEFjl
+                Fj1oCdaHsaiHUHObKiEB+ZZSdsm42oX8auguWQ+9fth+9CCfBBs/v7ah/xgSl8YNtxAfdXBEdYxFvZdX
+                gpViSrGVBZd717eg7K8TWw7++3W3r/f7d+FKBBBsDigiqDmv0kGGMmfjwoIxS1SCHsRu1pjQPrYLE/rK
+                5m/WJbjXmjx17WD2u8wDbIBkWk6cdSf++ToAA1NKdpMXscmsSuMoicDkjfMsuj0mzT9ObBFEV6zTS3VS
+                hN8GE2Qepjzpz9v6NmJhd4kyN+RD1gI2llKshLKlnsEulViiMltJuwQw9df88DH0eQxgsEwWGY6yvHSK
+                h3GjTiScO3n+wmkIn4LQDMTL2g2Mk5E7fq2TBaMz99cUZ070If3Mjl4MEHF7VN1KmNGSz3sXzMmnYZ6a
+                mw+WaCCSqDYKlh2I/hrT+Romv9/zYw3IU9zuyU54ot7kLt3Z8Cn5AjY2zLt5Y0BUT27RufGKEWRT5myu
+                Xbbd+VQIUxWDAuUjG07Hi1Om0IQc0eyF91m3SsD7NkntpvKbsrvdGrBRRaYfJ951CvoOVOG3ur5cTn3j
+                hTgXMf0GZ872fCezrBIwpWUbgs0rYZRMG2KRuAhA7X43VXHC+5XtFUx+Wpf7qcbmy5ISJ3gDuByNs7Hx
+                KutV7GW73e5yiMA/gYmvULuTBNp5t6fX+1mXwwfGtj18gFLRkYvF/prKpsZJ6fpxINCWjlc4zMdRE4F6
+                2JHeNdBUgLbivwXY9K67e10PH7kE6ni9nEA/0jsXaxOX7Tj2TZPh/Q/eOxqIxs22fLwq2wDid7pONdAR
+                Scs5W9WAuX1A2xU+2t0YMJhnMBhbbcnDMLYN3je6tBTCFmrURWgwVwKOV7LUsfBUeVx2xfX9IEg+TKXg
+                lDMc1rFRV5jaARzG9qHIfd+wNRqMWcpW3xajsVs/1tw80C/i0tWxuktiFSofPIC76d1jq2L/xbiNELBY
+                b025bdFnSOYgGQVtIdo8Xtl+3ltQHnZfqRqVmhlPT69T6A44s1P7664Fm9iuW1Ntkoj6RqpTzLTFC6q3
+                KQjO3CQorl+y7Spjz4KlQ3qe4KoCpyDZoYHwvaoOx7OmZSUWJye7LZP/bTQWNllUaQzO57BdBesxZ3E7
+                YgFow3GCwyknlA3Wz9B6vgGm6LZiEXrxAv48BfHzRoFm9voVI1Htt8Mo4ApmxKMJAWyy+T/ANgjKhq+3
+                gRx6OEbxNd6nbC3cxtIsA42n9Pr+/r7vEpwV4vT6cp/lgwZ4WwPecX4DbyCwD6oWLT1FfpgafPn5KZse
+                E1vsJg7E7JrXUygm16BqkN+H8l2GPd0jB/vp3eOgQT90PY0EmFDDmpftly8/i/tSJ/ZyDTp2xaMHNCSm
+                ftl0OTgT2qUYaRmwGM6lBPqHyOuhlaSm5W3tAW0x2V3n9WKcUnAInPeM3dChhlET3Xh3NNj54TCOQ6Nh
+                92AxPuAAErZJHrGRQLeeuZ9wFzecuR0rbLgV3lV2Y9s2TdP2Q4Dv8gDhPM32s5EtVTYWjvIVoZmgU8PF
+                4fPZWx33teCAFefd/vgeQoj2yWmzoBlzMHn2rmdVGs44XiZZkrQtRtE7HAoFLMzn1HCXt9vf2FRabIhp
+                8AZJTn1ZKjFJLq07Z223ES7cVQH4HVo+8mg3ocFyjc86aE0mnMYb7jO31qbeS8uVfmio9J6V0EwC5UZJ
+                74BfCdeDxdJHy79Rjp0au4cc5bSJgF1Nef6WpBizLFqBpk2MzMcRgsbrwKHl8jIpgQ/zh30CZsIO2Xbo
+                u17mKqriUT4Dw7oje95u6YYHTtHZyr1LO2Wez+Y4RurY2FkSE8ZqV72POK0N6O4kcFI8l+g813NFPud0
+                PnWTWewTKZYhdvP47Eu3LHwH4RIbx/JriyOEFrIbJ9qmMdK7c3U+UXs62RQ4le0UpWxnlm1iKbTdxtbz
+                XTCpKuU4z2iXRbfE5hbfxU0Nffkc8r/C0Q6bbhgYFgKjrT+EC0I3ovqVw4TPzXS2L8j3TdnJyrM7xyc2
+                vsemTU8CmHz6RVtbmFXfNxQ7EoMSdX5V7GJOzwzI34YmtsHnZwLo+QRVbH1TiTDXRx7bR54mQHwPej73
+                O58Dmffo75464Y9WmKx+p91Kfk83H51P/oYq+Iru/ukGAce24wPHYc8tqFNBcrz53G8ju9F9euJiKhFe
+                IHdkn/WtaF/TSXeuN++ek/lhsge++bV4nod5/vOg9KNgX4E+PEXzA9b6n/VYIf9kmL7S5Lt/w5N2v+vn
+                Pf/X9C/FWrVq1apVq1atWrVq1apVq1Z9gzavKEl6fdTLy+21tLm9/tk1A8T49Yu+b8JfXl9vv73cjr68
+                /iTaBgP09vqGMG+StEEQ6YWx/Xp7wXde3qTXNzz48ut180va4PEfZSOMzQsF6oUQiEyS3hBvg8ybt18I
+                iZT0H7Dvn2QDRMPr8x/sC7+n399uL+gHfv1oTkF6+Qt63fwH1KQnHxRLG2sAAAAASUVORK5CYII=
 </property>
         </structure>
     </list-property>

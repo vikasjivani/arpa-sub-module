@@ -18,8 +18,8 @@
     <menubar>
       <menu name="WarehouseInvoiceReportsMenu" title="Reports" icon="fa-files-o"
         showTitle="true">
-        <item name="printItem" title="Print" hideIf="true"
-          action="save,action-warehouse-invoice-method-print1"/>
+        <item name="printItem" title="Print" 
+          action="save,action-warehouse-invoice-method-print"/>
       </menu>
     </menubar>
 
