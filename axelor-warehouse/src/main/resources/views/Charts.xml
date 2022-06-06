@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.3.xsd">
+
+
+	<chart name="product.left.qty" title="Available Product">
+
+
+		<dataset type="jpql">
+		    <![CDATA[
+		   SELECT
+		   SUM(self.totalPiece) as TotalQty,
+           self.name as Name
+           
+        FROM
+           WarehouseProduct self
+				GROUP BY
+		    	Name
+		    ]]>
+	    </dataset>
+
+		<category key="Name" type="text" title="Product" />
+		<series key="TotalQty" type="bar" title="QTY" />
+	</chart>
+
+
+
+	<chart name="product.sold.value"
+		title="Product sold value with TAX">
+
+		<dataset type="jpql">
+		    <![CDATA[
+		   SELECT
+		   SUM(self.totalCostInTax) as TotalValue,
+           Product.name as Name
+           
+        FROM
+           WarehouseInvoiceLine self
+        LEFT JOIN
+      	self.product Product 
+           
+				GROUP BY
+		    	Name
+		    ]]>
+	    </dataset>
+
+		<category key="Name" type="text" title="Product" />
+		<series key="TotalValue" type="bar" title="Amount" />
+	</chart>
+
+	<chart name="product.total.sold.qty"
+		title="Product total sold QTY">
+
+
+		<dataset type="jpql">
+		    <![CDATA[
+		   SELECT
+		   SUM(self.totalPiece) as totalPiece,
+           Product.name as Name
+           
+        FROM
+           WarehouseInvoiceLine self
+        LEFT JOIN
+      	self.product Product 
+           
+				GROUP BY
+		    	Name
+		    ]]>
+	    </dataset>
+
+		<category key="Name" type="text" title="Product" />
+		<series key="totalPiece" type="pie" title="QTY" />
+	</chart>
+
+<chart name="customer.total.purchase.value"
+		title="Customer Total Purchase">
+
+
+		<dataset type="jpql">
+		    <![CDATA[
+		   SELECT
+		   SUM(self.grossAmount) as totalvalue,
+           Customer.name as Name
+           
+        FROM
+           WarehouseInvoice self
+        LEFT JOIN
+      	self.customer Customer 
+           
+				GROUP BY
+		    	Name
+		    ]]>
+	    </dataset>
+
+		<category key="Name" type="text" title="Product" />
+		<series key="totalvalue" type="bar" title="QTY" />
+	</chart>
+	
+</object-views>

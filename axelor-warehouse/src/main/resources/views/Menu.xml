@@ -41,6 +41,13 @@
     <view type="grid" name="warehouse-invoice-grid"/>
     <view type="form" name="warehouse-invoice-form"/>
   </action-view>
+  
+  <menuitem name="warehouse-dashboard-root" parent="" title="Dashboard"
+    action="warhouse.dashboard.root" order="1"/>
+
+  <action-view name="warhouse.dashboard.root" title="Dashboard">
+    <view type="dashboard" name="warehouse.dashboard"/>
+  </action-view>
 
   <menuitem name="warehouse-foods-config-root" parent="warehouse-foods-root"
     title="Configuration" order="100"/>

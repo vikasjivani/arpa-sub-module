@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.3.xsd">
+
+<dashboard title="Dashboard" name="warehouse.dashboard" width="large">
+    <dashlet action="dashlet.product.with.number.of.qty.left" height="350" canSearch="true" colSpan="12"/>
+    <dashlet action="dashlet.product.most.sold.product" height="350" canSearch="true" colSpan="6"/>
+	<dashlet action="dashlet.product.sold.qty" height="350" canSearch="true" colSpan="6"/>
+	<dashlet action="dashlet.customer.invoice.value" height="350" canSearch="true" colSpan="12"/>
+</dashboard>
+
+  
+  <action-view name="dashlet.product.with.number.of.qty.left"
+    model="com.axelor.apps.warehouse.db.WarehouseProduct" title="Left Product">
+    <view type="chart" name="product.left.qty"/>
+  </action-view>
+
+ <action-view name="dashlet.product.most.sold.product"
+    model="com.axelor.apps.warehouse.db.WarehouseInvoiceLine" title="Product sale values">
+    <view type="chart" name="product.sold.value"/>
+ </action-view>
+ 
+  <action-view name="dashlet.product.sold.qty"
+    model="com.axelor.apps.warehouse.db.WarehouseInvoiceLine" title="Product sale values">
+    <view type="chart" name="product.total.sold.qty"/>
+ </action-view>
+ 
+  <action-view name="dashlet.customer.invoice.value"
+    model="com.axelor.apps.warehouse.db.WarehouseInvoice" title="Customer total Purchase">
+    <view type="chart" name="customer.total.purchase.value"/>
+ </action-view>
+
+</object-views>
